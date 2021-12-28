@@ -1,19 +1,23 @@
 package core;
 
-import model.UserLogin;
-
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.port;
 
 public class Config {
 
-    private static final String BASE_URI  = "http://auth.modalgrpedidos.local";
-    private static final int PORT = 8082;
-    public UserLogin userLogin = new UserLogin();
-    public void execute(){
-        userLogin.setLogin("modalgrcredentials");
-        userLogin.setSenha("modalgrcredentials123");
-        baseURI=BASE_URI;
-        port=PORT;
+    private static final String BASE_URI_TOKEN  = "http://auth.modalgrpedidos.local";
+    private static final int PORT_TOKEN = 8082;
+
+    private static final String BASE_URI_DATA  = "http://api.modalgrpedidos.local";
+    private static final int PORT_DATA = 8081;
+
+    public void execute_config_authorization_server(){
+        baseURI=BASE_URI_TOKEN;
+        port=PORT_TOKEN;
+    }
+
+    public void execute_config_resource_server(){
+        baseURI=BASE_URI_DATA;
+        port=PORT_DATA;
     }
 }

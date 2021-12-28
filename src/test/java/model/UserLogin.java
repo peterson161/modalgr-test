@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
-@Builder
 @Setter
 @Getter
 public class UserLogin {
