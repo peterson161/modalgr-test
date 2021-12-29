@@ -11,12 +11,12 @@ public class Config {
     private static final String BASE_URI_DATA  = "http://api.modalgrpedidos.local";
     private static final int PORT_DATA = 8081;
 
-    public void execute_config_authorization_server(){
+    public void executeConfigAuthorizationServer(){
         baseURI=BASE_URI_TOKEN;
         port=PORT_TOKEN;
     }
 
-    public void execute_config_resource_server(){
+    public void executeConfigResourceServer(){
         baseURI=BASE_URI_DATA;
         port=PORT_DATA;
     }

@@ -8,7 +8,7 @@ public class Token {
 
     public Token(){
         config = new Config();
-        config.execute_config_authorization_server();
+        config.executeConfigAuthorizationServer();
     }
 
     public String getTokenClientCredentials(){
@@ -27,8 +27,6 @@ public class Token {
     }
 
     public String getTokenPassword(){
-        Config config = new Config();
-        config.execute_config_authorization_server();
 
         String token = given()
                 .auth().preemptive().basic("modalgrtoken", "modalgrtoken123")

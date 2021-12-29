@@ -1,66 +1,49 @@
 package core;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.restassured.http.ContentType;
 import model.Cliente;
 import model.Pedido;
 
 import org.junit.Test;
-import util.Utilities;
+import util.TestStatusCode;
 
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-
-import static io.restassured.RestAssured.*;
 
 public class PedidosTest {
 
-    private Utilities utilities = new Utilities();
+    private static final String PATH = "/pedidos";
+
     private Cliente cliente = new Cliente();
     private Pedido pedido = new Pedido();
-    private Token token = new Token();
-    private Config config = new Config();
+    private TestStatusCode testStatusCode = new TestStatusCode();
 
     private void setPedido(){
-        cliente.setId(2L);
+        cliente.setId(3L);
 
         pedido.setCliente(cliente);
-        pedido.setNumero("P" + LocalTime.now());
+        pedido.setNumero("PED11:12:27.136");
         pedido.setFormaPagamento("a prazo");
     }
 
     @Test
-    public void testGivenATokenWhenGetThenStatusCode200() throws JsonProcessingException {
-        String tokenPassword = token.getTokenPassword();
-        config.execute_config_resource_server();
-        given()
-            .auth().preemptive().oauth2(tokenPassword)
-        .when()
-            .get("/pedidos/15")
-        .then()
-            .log().all()
-            .assertThat()
-            .statusCode(200);
+    public void testGivenATokenWhenGetThenStatusCode200() {
+        testStatusCode.testStatusCode200(PATH + "/4");
     }
 
     @Test
     public void testGivenANewPedidoWhenPostThenStatusCode201() throws JsonProcessingException {
         setPedido();
-        String tokenPassword = token.getTokenPassword();
-        config.execute_config_resource_server();
-        given()
-            .auth().preemptive().oauth2(tokenPassword)
-            //.header("Authorization", tokenPassword)
-            .body(utilities.entityToJson(pedido))
-                //.body("")
-            .contentType(ContentType.JSON)
-        .when()
-            .post("/pedidos")
-        .then()
-            .log().all()
-            .assertThat()
-            .statusCode(201);
+        testStatusCode.testStatusCode201(pedido, PATH);
+    }
+
+    @Test
+    public void testGivenATokenWhenGetThenStatusCode204(){
+        testStatusCode.testStatusCode204(PATH + "/14");
+    }
+
+    @Test
+    public void testGivenAPedidoWhenPutThenStatusCode200() throws JsonProcessingException {
+        setPedido();
+        testStatusCode.testStatusCode200(pedido, PATH + "/17");
     }
 }
