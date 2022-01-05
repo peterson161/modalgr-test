@@ -13,10 +13,10 @@ public class TestStatusCode {
     private Config config = new Config();
     private Utilities utilities = new Utilities();
 
-    public void testStatusCode201(Object entity, String path) throws JsonProcessingException {
+    public int testStatusCode201(Object entity, String path) throws JsonProcessingException {
         String tokenPassword = token.getTokenPassword();
         config.executeConfigResourceServer();
-        given()
+        int id = given()
             .auth().preemptive().oauth2(tokenPassword)
             .body(utilities.entityToJson(entity))
             .contentType(ContentType.JSON)
@@ -25,14 +25,19 @@ public class TestStatusCode {
         .then()
             .log().all()
             .assertThat()
-            .statusCode(201);
+            .statusCode(201)
+            .extract()
+            .path("id");
+
+        return id;
     }
 
     public void testStatusCode200(String path){
         String tokenPassword = token.getTokenPassword();
         config.executeConfigResourceServer();
         given()
-            .auth().preemptive().oauth2(tokenPassword)
+            //.auth().preemptive().oauth2(tokenPassword)
+            .header("Authorization", "Bearer " + tokenPassword)
         .when()
             .get(path)
         .then()

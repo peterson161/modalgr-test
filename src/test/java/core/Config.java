@@ -5,10 +5,10 @@ import static io.restassured.RestAssured.port;
 
 public class Config {
 
-    private static final String BASE_URI_TOKEN  = "http://auth.modalgrpedidos.local";
+    private static final String BASE_URI_TOKEN  = "http://192.168.2.3"; //"http://auth.modalgrpedidos.local";
     private static final int PORT_TOKEN = 8082;
 
-    private static final String BASE_URI_DATA  = "http://api.modalgrpedidos.local";
+    private static final String BASE_URI_DATA  = "http://192.168.2.3"; //http://api.modalgrpedidos.local";
     private static final int PORT_DATA = 8081;
 
     public void executeConfigAuthorizationServer(){

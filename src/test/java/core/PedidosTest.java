@@ -27,7 +27,7 @@ public class PedidosTest {
 
     @Test
     public void testGivenATokenWhenGetThenStatusCode200() {
-        testStatusCode.testStatusCode200(PATH + "/4");
+        testStatusCode.testStatusCode200(PATH + "/1");
     }
 
     @Test

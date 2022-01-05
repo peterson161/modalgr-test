@@ -8,11 +8,10 @@ public class Token {
 
     public Token(){
         config = new Config();
-        config.executeConfigAuthorizationServer();
     }
 
     public String getTokenClientCredentials(){
-
+        config.executeConfigAuthorizationServer();
         String token = given()
                 .auth().preemptive().basic("modalgrcredentials", "modalgrcredentials123")
                 .contentType("application/x-www-form-urlencoded")
@@ -20,6 +19,7 @@ public class Token {
             .when()
                 .post("/oauth/token")
             .then()
+                .log().all()
                 .extract()
                 .path("access_token");
 
@@ -27,7 +27,7 @@ public class Token {
     }
 
     public String getTokenPassword(){
-
+        config.executeConfigAuthorizationServer();
         String token = given()
                 .auth().preemptive().basic("modalgrtoken", "modalgrtoken123")
                 .contentType("application/x-www-form-urlencoded")
@@ -37,6 +37,7 @@ public class Token {
             .when()
                 .post("/oauth/token")
             .then()
+                .log().all()
                 .extract()
                 .path("access_token");
 
